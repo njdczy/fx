@@ -1,5 +1,6 @@
 package cn.xhbuy.fx.dao.base;
 
+import cn.xhbuy.fx.domain.Region;
 import cn.xhbuy.fx.utils.PageBean;
 
 import java.io.Serializable;
@@ -18,4 +19,5 @@ public interface BaseDao <T> {
 
     void executeUpdate(String queryName, Object... objects);
     void pageQuery(PageBean pageBean);
+    void saveOrUpdate(T entity);
 }

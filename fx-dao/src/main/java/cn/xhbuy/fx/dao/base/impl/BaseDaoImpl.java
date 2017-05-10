@@ -1,6 +1,7 @@
 package cn.xhbuy.fx.dao.base.impl;
 
 import cn.xhbuy.fx.dao.base.BaseDao;
+import cn.xhbuy.fx.domain.Region;
 import cn.xhbuy.fx.utils.PageBean;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -98,6 +99,11 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T>{
         List rows = this.getHibernateTemplate().findByCriteria(detachedCriteria, (currentPage - 1) * pageSize, pageSize);
         pageBean.setRows(rows);
 
+    }
+
+    @Override
+    public void saveOrUpdate(T entity) {
+        this.getHibernateTemplate().saveOrUpdate(entity);
     }
 }
 
