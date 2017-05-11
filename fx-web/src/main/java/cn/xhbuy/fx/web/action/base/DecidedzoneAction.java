@@ -39,4 +39,13 @@ public class DecidedzoneAction extends BaseAction<Decidedzone> {
         return NONE;
     }
 
+    /**
+     * 远程调用crm服务，将客户关联到定区
+     */
+    public String assigncustomerstodecidedzone(){
+        //proxy.assigncustomerstodecidedzone(model.getId(), customerIds);
+        return LIST;
+    }
+
+
 }
