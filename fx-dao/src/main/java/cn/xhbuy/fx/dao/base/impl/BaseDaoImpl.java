@@ -2,6 +2,7 @@ package cn.xhbuy.fx.dao.base.impl;
 
 import cn.xhbuy.fx.dao.base.BaseDao;
 import cn.xhbuy.fx.domain.Region;
+import cn.xhbuy.fx.domain.Staff;
 import cn.xhbuy.fx.utils.PageBean;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -96,6 +97,8 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T>{
         pageBean.setTotal(count.intValue());
         //rows
         detachedCriteria.setProjection(null);
+        //指定hibernate框架封装对象的方式
+        detachedCriteria.setResultTransformer(DetachedCriteria.ROOT_ENTITY);
         List rows = this.getHibernateTemplate().findByCriteria(detachedCriteria, (currentPage - 1) * pageSize, pageSize);
         pageBean.setRows(rows);
 
@@ -105,5 +108,11 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T>{
     public void saveOrUpdate(T entity) {
         this.getHibernateTemplate().saveOrUpdate(entity);
     }
+
+    @Override
+    public List<T> findByCriteria(DetachedCriteria detachedCriteria) {
+        return (List<T>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
+    }
+
 }
 

@@ -117,7 +117,7 @@
 			<artifactId>poi</artifactId>
 			<version>3.11</version>
 		</dependency>
-
+		<!-- webservice -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
@@ -188,6 +188,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.32</version>
 		</dependency>
+
 	</dependencies>
 		<build>
 		<!-- 插件 -->

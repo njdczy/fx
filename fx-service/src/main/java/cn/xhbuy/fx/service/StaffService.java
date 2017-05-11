@@ -3,6 +3,8 @@ package cn.xhbuy.fx.service;
 import cn.xhbuy.fx.domain.Staff;
 import cn.xhbuy.fx.utils.PageBean;
 
+import java.util.List;
+
 /**
  * @author zhenggg on 2017/5/8.
  */
@@ -16,4 +18,6 @@ public interface StaffService {
     Staff findById(String id);
 
     void update(Staff staff);
+
+    List<Staff> findListNotDelete();
 }

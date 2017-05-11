@@ -1,7 +1,8 @@
 package cn.xhbuy.fx.dao.base;
 
-import cn.xhbuy.fx.domain.Region;
+
 import cn.xhbuy.fx.utils.PageBean;
+import org.hibernate.criterion.DetachedCriteria;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,4 +21,6 @@ public interface BaseDao <T> {
     void executeUpdate(String queryName, Object... objects);
     void pageQuery(PageBean pageBean);
     void saveOrUpdate(T entity);
+
+    List<T> findByCriteria(DetachedCriteria detachedCriteria);
 }
