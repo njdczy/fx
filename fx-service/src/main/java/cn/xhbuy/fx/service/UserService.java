@@ -9,5 +9,5 @@ public interface UserService {
 
     public User login(User model);
 
-    void editPassword(Long id, String password);
+    void editPassword(String id, String password);
 }
