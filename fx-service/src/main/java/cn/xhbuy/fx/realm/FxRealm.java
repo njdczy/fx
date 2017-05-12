@@ -16,6 +16,7 @@ public class FxRealm  extends AuthorizingRealm{
     private UserDao userDao;
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        //TODO
         return null;
     }
 

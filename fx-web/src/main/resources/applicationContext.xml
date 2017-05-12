@@ -90,6 +90,14 @@
 	</bean>
 	<!-- 注册realm -->
 	<bean id="FxRealm" class="cn.xhbuy.fx.realm.FxRealm"></bean>
+	<!-- 开启shiro框架注解支持 -->
+	<bean id="defaultAdvisorAutoProxyCreator"
+		  class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+		<!-- 必须使用cglib方式为Action对象创建代理对象 -->
+		<property name="proxyTargetClass" value="true"/>
+	</bean>
+	<!-- 配置shiro框架提供的切面类，用于创建代理对象 -->
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"/>
 		<!-- 注册crm客户端代理对象 -->
 <!--<jaxws:client id="crmClient"-->
 			  <!--serviceClass="com.itheima.crm.ICustomerService"-->
