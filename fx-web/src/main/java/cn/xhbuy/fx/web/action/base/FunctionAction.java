@@ -19,7 +19,7 @@ public class FunctionAction extends BaseAction<Function> {
 
     public String ajaxlist(){
         List<Function> functionList = functionService.findAll();
-        this.java2Json(functionList, new String[]{"parentFunction","roles","children"});
+        this.java2Json(functionList, new String[]{"parentFunction","roles"});
         return NONE;
     }
     public String add()
