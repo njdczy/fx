@@ -1,12 +1,19 @@
 package cn.xhbuy.fx.realm;
 
+import cn.xhbuy.fx.dao.FunctionDao;
 import cn.xhbuy.fx.dao.UserDao;
+import cn.xhbuy.fx.domain.Function;
 import cn.xhbuy.fx.domain.User;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @author zhenggg on 2017/5/11.
@@ -14,12 +21,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class FxRealm  extends AuthorizingRealm{
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private FunctionDao functionDao;
+    /**
+     * 授权
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        //TODO
-        return null;
+        //获取当前用户的权限
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        List<Function> list = null;
+        if (user.getUsername().equals("admin")) {
+            DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Function.class);
+            list = functionDao.findByCriteria(detachedCriteria);
+        }else {
+            list = functionDao.findFunctionListByUserId(user.getId());
+        }
+        for (Function function : list) {
+            info.addStringPermission(function.getCode());
+        }
+        return info;
+
     }
 
+    /**
+     * 认证
+     * @param authenticationToken
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken mytoken = (UsernamePasswordToken)authenticationToken;

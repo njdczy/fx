@@ -2,7 +2,9 @@ package cn.xhbuy.fx.service.impl;
 
 import cn.xhbuy.fx.dao.FunctionDao;
 import cn.xhbuy.fx.domain.Function;
+import cn.xhbuy.fx.domain.User;
 import cn.xhbuy.fx.service.FunctionService;
+import cn.xhbuy.fx.utils.FXUtils;
 import cn.xhbuy.fx.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +36,17 @@ public class FunctionServiceImpl implements FunctionService {
     @Override
     public void pageQuery(PageBean pageBean) {
         functionDao.pageQuery(pageBean);
+    }
+
+    @Override
+    public List<Function> findMenu() {
+        List<Function> list = null;
+        User loginUser = FXUtils.getLoginUser();
+        if(loginUser.getUsername().equals("admin")){
+            list = functionDao.findAllMenu();
+        }else {
+            list = functionDao.findMenuByUserId(loginUser.getId());
+        }
+        return list;
     }
 }

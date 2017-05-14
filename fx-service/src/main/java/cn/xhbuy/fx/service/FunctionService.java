@@ -14,4 +14,6 @@ public interface FunctionService {
     void add(Function model);
 
     void pageQuery(PageBean pageBean);
+
+    List<Function> findMenu();
 }

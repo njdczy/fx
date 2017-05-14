@@ -35,5 +35,12 @@ public class FunctionAction extends BaseAction<Function> {
         this.java2Json(pageBean, new String[]{"parentFunction","roles","children"});
         return NONE;
     }
-
+    /**
+     * 根据当前用户查出对应菜单
+     */
+    public String findMenu() {
+        List<Function> list = functionService.findMenu();
+        this.java2Json(list, new String[]{"parentFunction","roles","children"});
+        return NONE;
+    }
 }
