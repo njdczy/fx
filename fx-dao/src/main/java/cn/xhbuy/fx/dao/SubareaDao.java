@@ -9,4 +9,5 @@ import java.util.List;
  * @author zhenggg on 2017/5/10.
  */
 public interface SubareaDao extends BaseDao<Subarea>{
+    List<Object> findSubareasGroupByProvince();
 }

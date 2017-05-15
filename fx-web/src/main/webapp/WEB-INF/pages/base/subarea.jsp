@@ -26,6 +26,8 @@
 <script
 	src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"
 	type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath }/js/highcharts/highcharts.js"></script>
+	<script src="${pageContext.request.contextPath }/js/highcharts/modules/exporting.js"></script>
 <script type="text/javascript">
 	function doAdd(){
 		$('#addSubareaWindow').window("open");
@@ -47,6 +49,23 @@
     function doExport(){
         //发送请求，请求Action，进行文件下载
         window.location.href = "subareaAction_exportXls.action";
+    }
+
+    function doCharts() {
+        $("#showSubareaWindow").window("open");
+        //页面加载完成后，动态创建图表
+        $.post("subareaAction_findSubareasGroupByProvince.action",function(data){
+            $("#test").highcharts({
+                title: {
+                    text: '区域分区分布图'
+                },
+                series: [{
+                    type: 'pie',
+                    name: '区域分区分布图',
+                    data: data
+                }]
+            });
+        });
     }
 	
 	function doImport(){
@@ -80,11 +99,16 @@
 		iconCls : 'icon-redo',
 		handler : doImport
 	},{
-		id : 'button-export',
-		text : '导出',
-		iconCls : 'icon-undo',
-		handler : doExport
-	}];
+        id : 'button-export',
+        text : '导出',
+        iconCls : 'icon-undo',
+        handler : doExport
+    },{
+        id : 'button-show-charts',
+            text : 'charts',
+            iconCls : 'icon-search',
+            handler : doCharts
+    }];
 	// 定义列
 	var columns = [ [ {
 		field : 'id',
@@ -167,7 +191,14 @@
 			columns : columns,
 			onDblClickRow : doDblClickRow
 		});
-		
+        $('#showSubareaWindow').window({
+            width: 800,
+            modal: true,
+            shadow: true,
+            closed: true,
+            height: 700,
+            resizable:false
+        });
 		// 添加、修改分区
 		$('#addSubareaWindow').window({
 	        title: '添加修改分区',
@@ -318,6 +349,12 @@
 					</tr>
 				</table>
 			</form>
+		</div>
+	</div>
+	<!-- 用于展示图表 -->
+	<div class="easyui-window" title="区域分区分布图" id="showSubareaWindow"
+		 collapsible="false" minimizable="false" maximizable="false" style="top:20px;left:200px">
+		<div id="test"  split="false" border="false" >
 		</div>
 	</div>
 </body>

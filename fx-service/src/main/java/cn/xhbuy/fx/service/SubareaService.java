@@ -16,4 +16,6 @@ public interface SubareaService {
     List<Subarea> findAll();
 
     List<Subarea> findListNotAssociation();
+
+    List<Object> findSubareasGroupByProvince();
 }

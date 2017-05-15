@@ -48,4 +48,9 @@ public class SubareaSeriveImpl implements SubareaService {
         detachedCriteria.add(Restrictions.isNull("decidedzone"));
         return subareaDao.findByCriteria(detachedCriteria);
     }
+
+    @Override
+    public List<Object> findSubareasGroupByProvince() {
+        return subareaDao.findSubareasGroupByProvince();
+    }
 }
